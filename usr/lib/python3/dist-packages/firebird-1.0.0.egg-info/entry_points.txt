@@ -1,0 +1,3 @@
+[console_scripts]
+firebird = firebird.__main__:main
+
