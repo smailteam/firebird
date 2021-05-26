@@ -1,9 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Name=FireBird
-Comment[es]=SMail Client
-Exec=firebird
-Terminal=0
-Type=Application
-Icon=/usr/lib/firebird/talonflame.ico
-Categories=Communication;
