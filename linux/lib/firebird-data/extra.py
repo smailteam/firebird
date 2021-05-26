@@ -25,15 +25,15 @@ def vinstance(raw,theme,var):
 	main=QWidget()
 	mgrid=QGridLayout(main)
 	var.__get__('info').setText('Getting version')
-
+	
 	l1=QLabel('Instance Version: '+var.__get__('raw').version())
 	b1=QPushButton('Close')
 	b1.clicked.connect(lambda: main.close())
-
+	
 	mgrid.addWidget(l1,1,1,1,1)
 	mgrid.addWidget(b1,2,1,1,1)
 	var.__get__('info').setText('Sucess')
-
+	
 	main.setStyleSheet(theme)
 	main.show()
 
