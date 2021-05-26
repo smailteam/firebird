@@ -26,11 +26,15 @@ class RawMail:
 	def send(self,reiciver,content,verify=True):
 		if str(type(reiciver.split(',')))=="<class 'list'>":
 			for i in reiciver.split(','):
-				r=self.session.post(self.instance+'api/send.php',data={'mail_r':i,'content':content},allow_redirects=True,verify=verify)
-				if (json.loads(r.text)['code']=='200')==False:
+				try:
+					r=self.session.post('https://'+i.split('@')[1]+'api/send.php?user={0}&password={1}'.format(self.user,self.password),data={'mail_r':i,'content':content},allow_redirects=True,verify=verify)
+				except IndexError:
+					r=self.session.post(self.instance+'api/send.php',data={'mail_r':i,'content':content},allow_redirects=True,verify=verify)
+					print(r.text)
+				if (r.status_code==200)==False:
 					raise HttpResponseNot200Error('Unknow Error in the send')
 				else:
-					return 200
+					print('Succefully sended')
 		else:
 			try:
 				r=self.session.post(reiciver.split('@')[1]+'api/send.php',data={'mail_r':reiciver,'content':content},allow_redirects=True,verify=verify)
