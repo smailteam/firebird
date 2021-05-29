@@ -1,3 +1,29 @@
+#
+#	Copyright 2021 Boris Daniel <borisdaniel@reisub.nsupdate.info/smail/> on SMail
+#
+#	This program is free software; you
+#	can redistribute it and/or modify
+#	it under the terms of the GNU General
+#	Public License as the published by
+#	the Free Software Fundation; either
+#	version 3 of the License, or (at
+#	your option) any later version.
+#
+#	This program is distributed in the
+#	hope that it will be useful, but
+#	WITHOUT ANY WARRANTY; without even
+#	the implied in warranty of
+#	MERCHANTABILITY or FITNESS FOR A
+#	PARTICULAR PURPOSE. See the GNU
+#	General Public License for more details.
+#
+#	You should have received a copy of
+#	the GNU General Public License along
+#	with this program; if not, write to
+#	the Free Software Fundation, Inc., 51
+#	Franklin Street, Fifth Floor, Boston
+#	MA 02110-1301, USA.
+
 import xml.etree.ElementTree as ET
 import requests
 import sqlite3
@@ -28,7 +54,8 @@ class RawMail:
 			for i in reiciver.split(','):
 				r=self.session.post(self.instance+'api/send.php',data={'mail_r':i,'content':content},allow_redirects=True,verify=verify)
 				if (json.loads(r.text)['code']=='200')==False:
-					raise HttpResponseNot200Error('Unknow Error in the send')
+					print(r.text)
+					#raise HttpResponseNot200Error('Unknow Error in the send')
 				else:
 					return 200
 		else:
@@ -37,7 +64,8 @@ class RawMail:
 			except IndexError:
 				r=self.session.post(self.instance+'api/send.php',data={'mail_r':reiciver,'content':content},allow_redirects=True,verify=verify)
 			if (r.status_code=='200')==False:
-				raise HttpResponseNot200Error('Unknow Error in the send')
+				print(r)
+				#raise HttpResponseNot200Error('Unknow Error in the send ')
 			else:
 				print('Succefully sended')
 	def mailbox(self,mbox,verify=True):
@@ -69,3 +97,7 @@ class RawMail:
 	def version(self):
 		r=self.session.get(self.instance+'VERSION')
 		return r.text
+
+
+raw=RawMail('https://reisub.nsupdate.info/smail/','borisdaniel','test')
+print(raw.send('borisdaniel','hola'))
