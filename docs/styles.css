@@ -4,6 +4,7 @@ body{
 	padding:0px 20%;
 	font-family:'Roboto',sans-serif;
 }
-header,#presentation,.galery{
+header,#presentation,.galery,footer{
 	text-align:center;
 }
+footer{font-size:small;}
